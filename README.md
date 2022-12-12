@@ -1,5 +1,5 @@
 # Shelter
-## Game developed in Unity WEBGL, by André Cerqueira
+Game developed in Unity WEBGL, by André Cerqueira
 
 ## How to play
 1. Open [Shelter](https://andrecerqueira.github.io/games/Shelter/index.html)
