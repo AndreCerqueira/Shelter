@@ -1,5 +1,7 @@
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -10,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     // Force applied to the player when jumping
     public float jumpForce = 10;
     private bool isJumping = false;
+    private bool closeToLanding = false;
+    public float horizontalInput;
+    private bool onIce = true;
 
     // Reference to the player's rigidbody component
     private Rigidbody2D rb;
@@ -28,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Get input from the user
-        float horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = Input.GetAxis("Horizontal");
         bool jumpInput = Input.GetButtonDown("Jump");
         anim.SetBool("isRunning", horizontalInput != 0);
 
@@ -40,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
 
         // If the user presses the jump button, apply a force to the player
-        anim.SetBool("isGrounded", IsGrounded());
+        anim.SetBool("isGrounded", closeToLanding);
         if (jumpInput && IsGrounded() && !isJumping)
         {
             isJumping = true;
@@ -65,10 +70,34 @@ public class PlayerMovement : MonoBehaviour
         return hit.collider != null;
     }
 
+    // On trigger 2d enter
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            closeToLanding = true;
+        }
+    }
+
+    // On trigger 2d exit
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            closeToLanding = false;
+        }
+    }
+
     public void StartJumpEvent()
     {
         isJumping = false;
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
+
+    public void EndTransformationEvent()
+    {
+        onIce = !onIce;
+        anim.SetBool("onIce", onIce);
     }
 
     public void CheckSpecialMovements()
@@ -84,6 +113,5 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetMouseButtonUp(0))
             anim.SetTrigger("attack");
-
     }
 }

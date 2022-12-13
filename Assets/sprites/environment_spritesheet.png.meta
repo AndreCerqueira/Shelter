@@ -515,6 +515,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: environment_spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 176
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e87f38da6e40cf44a83ec550de55fe8
+      internalID: 1134138531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -544,6 +565,7 @@ TextureImporter:
       environment_spritesheet_3: -521655616
       environment_spritesheet_0: -619758935
       environment_spritesheet_16: -1972815957
+      environment_spritesheet_19: 1134138531
       environment_spritesheet_10: 346817410
   spritePackingTag: 
   pSDRemoveMatte: 0
